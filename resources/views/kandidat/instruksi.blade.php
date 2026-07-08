@@ -28,13 +28,20 @@
 </head>
 <body>
     <div class="container">
+        @if(session('error'))
+            <div style="background: #ef4444; color: #fff; padding: 10px; margin-bottom: 20px;">{{ session('error') }}</div>
+        @endif
+
         <h1>Halo, {{ Auth::guard('kandidat')->user()->nama }}</h1>
         <p>Posisi yang dilamar: <strong>{{ Auth::guard('kandidat')->user()->posisi }}</strong></p>
 
         <div class="info">
             <p><strong>Instruksi Tes:</strong></p>
             <p>Tes ini terdiri dari 2 bagian: 50 soal kepribadian (skala 1-5) dan 15 soal logika pilihan ganda. Kerjakan dengan jujur, tidak ada jawaban benar/salah untuk bagian kepribadian. Pastikan koneksi internet stabil sebelum mulai.</p>
-            <p style="margin-top: 10px; color: red;"><em>Menunggu instruksi dari Admin untuk mulai...</em></p>
+            
+            <p style="margin-top: 15px; font-size: 1.2rem; font-weight: bold;">
+                Sisa Waktu Ujian: <span id="kandidat-timer" style="color: #2563eb;">--:--</span>
+            </p>
         </div>
 
         <form action="/tes/mulai" method="POST">
@@ -42,5 +49,25 @@
             <button type="submit" class="btn-mulai">Mulai Tes Sekarang</button>
         </form>
     </div>
+
+    <script>
+        function updateTimer() {
+            fetch('/admin/ujian/sisa-waktu', {
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                let remaining = Math.max(0, Math.floor(data.remaining));
+                const minutes = Math.floor(remaining / 60);
+                const seconds = remaining % 60;
+                document.getElementById('kandidat-timer').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            });
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
 </body>
 </html>

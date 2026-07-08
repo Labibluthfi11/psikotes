@@ -37,10 +37,62 @@
         .container { animation: appear 0.6s ease-out; }
         @keyframes appear { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
+    <style>
+        /* ... existing styles ... */
+        .timer-sticky { position: sticky; top: 0; background: #000; color: #fff; padding: 15px; z-index: 100; text-align: center; font-weight: 900; font-size: 1.5rem; margin-bottom: 20px; border: 2px solid #000; }
+        .timer-warning { background: #ef4444; }
+    </style>
 </head>
 <body>
     <div class="container">
+        {{-- Timer --}}
+        <div id="timer" class="timer-sticky">
+            Waktu: <span id="time-display">--:--</span>
+        </div>
+
+        {{-- Overlay Kunci Ujian --}}
+        <div id="lock-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); color:#fff; z-index:9999; flex-direction:column; justify-content:center; align-items:center; text-align: center; padding: 20px;">
+            <h1 style="font-size: 3rem;">WAKTU HABIS!</h1>
+            <p style="font-size: 1.5rem;">Tes telah dikunci. Silahkan hubungi HRD PT Ansel Muda Berkarya untuk informasi lebih lanjut atau permintaan tambahan waktu.</p>
+        </div>
+
         <h1>Form Psikotes</h1>
+
+        <script>
+            function updateTimer() {
+                fetch('/admin/ujian/sisa-waktu', {
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    let remaining = Math.max(0, Math.floor(data.remaining));
+                    const minutes = Math.floor(remaining / 60);
+                    const seconds = remaining % 60;
+                    document.getElementById('time-display').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+                    if (remaining <= 0) {
+                        lockExam();
+                    } else if (remaining < 60) {
+                        document.getElementById('timer').classList.add('timer-warning');
+                    }
+                });
+            }
+
+            function lockExam() {
+                const overlay = document.getElementById('lock-overlay');
+                overlay.style.display = 'flex';
+
+                const form = document.querySelector('form');
+                const inputs = form.querySelectorAll('input, button, select');
+                inputs.forEach(input => input.disabled = true);
+            }
+
+            setInterval(updateTimer, 1000);
+            updateTimer();
+        </script>
 
         @if ($errors->any())
             <div class="error-list">
@@ -86,14 +138,14 @@
             @endforeach
 
             {{-- ============ BAGIAN LOGIKA ============ --}}
-            <h2>Bagian 2 — Logika (15 Soal)</h2>
+            <h2>Bagian 2 — Logika (20 Soal)</h2>
             <p style="font-size:0.85rem; color:#555; margin-bottom:20px;">
                 Pilih satu jawaban yang paling tepat untuk setiap soal.
             </p>
 
             @foreach ($soalLogika as $index => $soal)
                 <div class="soal-card">
-                    <div class="nomor">Soal {{ $index + 1 }} dari 15</div>
+                    <div class="nomor">Soal {{ $index + 1 }} dari 20</div>
                     <p>{{ $soal['teks'] }}</p>
                     <div class="mc-options">
                         @foreach ($soal['opsi'] as $opsi)

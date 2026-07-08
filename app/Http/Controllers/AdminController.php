@@ -11,16 +11,6 @@ use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
     /**
-     * Define the middleware for the controller.
-     */
-    public static function middleware(): array
-    {
-        return [
-            'auth:web' => ['except' => ['login', 'loginPost']],
-        ];
-    }
-
-    /**
      * Show the login form.
      */
     public function login()

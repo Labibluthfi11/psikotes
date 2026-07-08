@@ -78,7 +78,7 @@
 
         <h2>Skor Logika</h2>
         <p style="font-weight: 800; text-transform: uppercase; font-size: 0.9rem;">
-            Skor: {{ $hasil->skor_logika }}/15 <br>
+            Skor: {{ $hasil->skor_logika }}/20 <br>
             Kategori: {{ $hasil->kat_logika }} <br>
             <span style="font-weight: 400; text-transform: none;">
                 @if ($hasil->skor_logika >= 12)

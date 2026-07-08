@@ -90,7 +90,7 @@
             padding-top: 20px;
             animation: appear 1.2s ease-out;
         }
-        
+
         .meta-item { border: 1px solid #ccc; padding: 15px; text-align: left; }
         .meta-item b { display: block; margin-bottom: 5px; }
 
@@ -110,13 +110,13 @@
         <main class="main-content">
             <h2>Tes Psikologi Pendaftar</h2>
             <p>Selesaikan tes ini dengan jujur. Hasil Anda akan menjadi pertimbangan dalam proses rekrutmen kami.</p>
-            
+
             <a href="{{ url('/tes') }}" class="btn">Mulai Tes Sekarang</a>
 
             <div class="meta">
                 <div class="meta-item">
                     <b>DURASI</b>
-                    <span>± 30 Menit</span>
+                    <span>Sesuai yang di terapkan oleh admin</span>
                 </div>
                 <div class="meta-item">
                     <b>STATUS</b>

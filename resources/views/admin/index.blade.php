@@ -42,28 +42,80 @@
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Dashboard Admin</h1>
-            <div class="nav-links">
-                <!-- Kontrol Ujian -->
-                <form action="/admin/ujian/status" method="POST" style="display:inline;">
-                    @csrf
-                    <input type="hidden" name="status" value="running">
-                    <button type="submit" style="background:#22c55e;">Start Ujian</button>
-                </form>
-                <form action="/admin/ujian/status" method="POST" style="display:inline;">
-                    @csrf
-                    <input type="hidden" name="status" value="paused">
-                    <button type="submit" style="background:#ef4444;">Pause Ujian</button>
-                </form>
-                
-                <a href="/admin/kandidat">Kelola Kandidat</a>
-                <form action="/admin/logout" method="POST">
-                    @csrf
-                    <button type="submit">Logout</button>
-                </form>
+        <header style="display: block;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #000; padding-bottom: 20px; margin-bottom: 20px;">
+                <h1>Dashboard Admin</h1>
+                <div class="nav-links">
+                    <a href="/admin/kandidat">Kelola Kandidat</a>
+                    <form action="/admin/logout" method="POST" style="display:inline;">
+                        @csrf
+                        <button type="submit">Logout</button>
+                    </form>
+                </div>
+            </div>
+
+            {{-- Flash Message & Status --}}
+            @php $settings = \Illuminate\Support\Facades\DB::table('ujian_settings')->first(); @endphp
+            @if(session('success'))
+                <div style="background: #22c55e; color: #fff; padding: 10px; margin-bottom: 20px; font-weight: bold; text-align: center; border: 2px solid #000;">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            <div style="display: flex; justify-content: space-between; align-items: center; border: 2px solid #000; padding: 15px; background: #eee;">
+                <div>
+                    <strong>Status Ujian:</strong> 
+                    <span id="status-text" style="text-transform: uppercase; font-weight: 900; color: #000;">
+                        LOADING...
+                    </span>
+                    <br>
+                    <strong>Sisa Waktu Global:</strong> <span id="admin-timer" style="font-weight: 900; font-family: monospace; font-size: 1.2rem;">--:--</span>
+                </div>
+                <div>
+                    <!-- Kontrol Ujian -->
+                    <form action="/admin/ujian/status" method="POST" style="display:inline;">
+                        @csrf
+                        <input type="number" name="durasi" value="{{ \Illuminate\Support\Facades\DB::table('ujian_settings')->value('durasi_total_menit') ?? 30 }}" style="width: 60px; padding: 5px;" min="1" placeholder="Menit">
+                        <input type="hidden" name="status" value="running">
+                        <button type="submit" style="background:#22c55e;">Start Ujian</button>
+                    </form>
+                    <form action="/admin/ujian/status" method="POST" style="display:inline;">
+                        @csrf
+                        <input type="hidden" name="status" value="paused">
+                        <button type="submit" style="background:#ef4444;">Pause Ujian</button>
+                    </form>
+                </div>
             </div>
         </header>
+
+        <script>
+            function updateTimer() {
+                fetch('/admin/ujian/sisa-waktu', {
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    let remaining = Math.max(0, Math.floor(data.remaining));
+                    
+                    const minutes = Math.floor(remaining / 60);
+                    const seconds = remaining % 60;
+                    
+                    document.getElementById('admin-timer').textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                    
+                    // Update Status
+                    const statusEl = document.getElementById('status-text');
+                    statusEl.textContent = data.status;
+                    statusEl.style.color = (data.status === 'running') ? '#22c55e' : (data.status === 'paused' ? '#ef4444' : '#000');
+                });
+            }
+            
+            // Polling setiap detik
+            setInterval(updateTimer, 1000);
+            updateTimer();
+        </script>
 
         <div class="dashboard-grid">
             <div class="stat-card"><h3>Total Kandidat</h3><p>{{ $stats['total'] }}</p></div>

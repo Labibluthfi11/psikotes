@@ -32,6 +32,7 @@ Route::middleware(['auth:kandidat'])->group(function () {
 Route::middleware(['auth:web'])->group(function () {
     Route::post('/admin/logout', [AdminController::class, 'logout']);
     Route::post('/admin/ujian/status', [UjianController::class, 'updateGlobalStatus']);
+    Route::get('/admin/ujian/sisa-waktu', [UjianController::class, 'getSisaWaktu']); 
     Route::get('/admin', [AdminController::class, 'index']);
     
     // SPESIFIK dulu (tanpa wildcard)
