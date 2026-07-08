@@ -13,7 +13,7 @@ class TesController extends Controller
         return ['auth:kandidat'];
     }
 
-    private function getSoalBigFive(): array
+    public function getSoalBigFive(): array
     {
         return [
             ['dimensi'=>'O','reverse'=>false,'teks'=>'Saya punya imajinasi yang kaya'],
@@ -73,7 +73,7 @@ class TesController extends Controller
         ];
     }
 
-    private function getSoalLogika(): array
+    public function getSoalLogika(): array
     {
         return [
             // Deret Angka (5)
