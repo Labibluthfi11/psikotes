@@ -52,8 +52,9 @@
         </h2>
         <div id="jawabanDetail" style="display: none; margin-top: 20px;">
             @php
-                $soalBigFive = app('App\Http\Controllers\TesController')->getSoalBigFive();
-                $soalLogika = app('App\Http\Controllers\TesController')->getSoalLogika();
+                $tesService = app('App\Services\TesService');
+                $soalBigFive = $tesService->getSoalBigFive();
+                $soalLogika = $tesService->getSoalLogika();
             @endphp
             <div style="background: #eee; padding: 20px; border: 2px solid #000; overflow-x: auto;">
                 <h3>Bagian 1: Kepribadian</h3>
