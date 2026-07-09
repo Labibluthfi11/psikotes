@@ -7,6 +7,7 @@ use App\Models\Kandidat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -91,6 +92,11 @@ class AdminController extends Controller
      */
     public function show($id)
     {
+        // Pastikan pengguna adalah admin
+        if (!auth()->guard('web')->check()) {
+            abort(403, 'Unauthorized');
+        }
+
         $hasil = HasilTes::findOrFail($id);
         return view('admin.show', compact('hasil'));
     }
@@ -162,7 +168,7 @@ class AdminController extends Controller
                 'posisi' => $posisi,
             ]);
 
-            \Log::info('Attempting to create KandidatImport: ' . $nama);
+            Log::info('Attempting to create KandidatImport: ' . $nama);
             $import = \App\Models\KandidatImport::create([
                 'nama' => $nama,
                 'email' => $email,
@@ -170,7 +176,7 @@ class AdminController extends Controller
                 'posisi' => $posisi,
                 'imported_at' => $now,
             ]);
-            \Log::info('Created KandidatImport ID: ' . $import->id);
+            Log::info('Created KandidatImport ID: ' . $import->id);
 
             $importedData[] = [
                 'nama' => $nama,
