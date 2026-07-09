@@ -202,6 +202,7 @@
                 scales: {
                     r: {
                         beginAtZero: true,
+                        max: 50, // Menetapkan batas maksimal 50
                         ticks: { display: false } // Menyembunyikan angka skala di radial axis
                     }
                 }
