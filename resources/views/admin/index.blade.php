@@ -180,13 +180,32 @@
                 labels: ['Keterbukaan', 'Kedisiplinan', 'Energi Sosial', 'Kerjasama', 'Stabilitas Emosi'],
                 datasets: [{
                     label: 'Profil Rata-rata',
-                    data: [{{ implode(',', $stats['big_five']) }}],
+                    data: [
+                        {{ $stats['big_five']['O'] ?? 0 }},
+                        {{ $stats['big_five']['C'] ?? 0 }},
+                        {{ $stats['big_five']['E'] ?? 0 }},
+                        {{ $stats['big_five']['A'] ?? 0 }},
+                        {{ $stats['big_five']['N'] ?? 0 }}
+                    ],
                     backgroundColor: 'rgba(0,0,0,0.2)',
                     borderColor: '#000',
                     borderWidth: 2
                 }]
             },
-            options: { responsive: true, maintainAspectRatio: false }
+            options: { 
+                responsive: true, 
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false } // Mematikan tooltip agar tidak muncul angka saat hover
+                },
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        ticks: { display: false } // Menyembunyikan angka skala di radial axis
+                    }
+                }
+            }
         });
 
         // Bar Chart
