@@ -62,10 +62,21 @@
                     <thead><tr style="background: #000; color: #fff;"><th style="padding: 10px; border: 1px solid #ccc;">No</th><th style="padding: 10px; border: 1px solid #ccc;">Pernyataan</th><th style="padding: 10px; border: 1px solid #ccc;">Skala (1-5)</th></tr></thead>
                     <tbody>
                         @foreach($soalBigFive as $i => $soal)
+                        @php
+                            $skorAngka = $hasil->jawaban_detail['bf_' . $i] ?? '-';
+                            $skalaTeks = [
+                                1 => 'Sangat Tidak Setuju',
+                                2 => 'Tidak Setuju',
+                                3 => 'Netral',
+                                4 => 'Setuju',
+                                5 => 'Sangat Setuju'
+                            ];
+                            $tampilanSkala = isset($skalaTeks[$skorAngka]) ? $skalaTeks[$skorAngka] : '-';
+                        @endphp
                         <tr>
                             <td style="padding: 10px; border: 1px solid #ccc;">{{ $i + 1 }}</td>
                             <td style="padding: 10px; border: 1px solid #ccc;">{{ $soal['teks'] }}</td>
-                            <td style="padding: 10px; border: 1px solid #ccc; text-align: center;">{{ $hasil->jawaban_detail['bf_' . $i] ?? '-' }}</td>
+                            <td style="padding: 10px; border: 1px solid #ccc; text-align: center;">{{ $tampilanSkala }}</td>
                         </tr>
                         @endforeach
                     </tbody>
