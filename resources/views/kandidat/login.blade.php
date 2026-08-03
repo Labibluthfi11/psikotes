@@ -22,6 +22,12 @@
             padding: 20px;
         }
 
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 20px;
+            }
+        }
+
         .login-card {
             background: #fff;
             color: #000;

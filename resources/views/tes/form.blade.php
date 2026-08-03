@@ -7,10 +7,13 @@
     <style>
         :root { --bg: #f8fafc; --text: #000; --accent: #2563eb; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fff; color: var(--text); padding: 40px; margin: 0; }
+        @media (max-width: 600px) { body { padding: 15px; } }
         .container { max-width: 800px; margin: 0 auto; border: 2px solid #000; padding: 40px; }
+        @media (max-width: 600px) { .container { padding: 20px; } }
         h1 { margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 1px; font-size: 1.8rem; }
         h2 { margin: 40px 0 20px 0; text-transform: uppercase; letter-spacing: 1px; font-size: 1.2rem; border-bottom: 2px solid #000; padding-bottom: 10px; }
         .form-info { display: flex; gap: 20px; margin-bottom: 30px; border-bottom: 2px solid #000; padding-bottom: 20px; }
+        @media (max-width: 600px) { .form-info { flex-direction: column; gap: 10px; } }
         .form-group { flex: 1; }
         label.field-label { display: block; margin-bottom: 5px; font-weight: 800; text-transform: uppercase; font-size: 0.7rem; }
         p.data { font-weight: 700; font-size: 1rem; margin: 0; text-transform: uppercase; }
@@ -20,7 +23,9 @@
 
         /* Scale radio (Big Five) */
         .scale-options { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+        @media (max-width: 600px) { .scale-options { flex-wrap: wrap; justify-content: center; } }
         .scale-options .label-text { font-size: 0.65rem; font-weight: 800; white-space: nowrap; }
+        @media (max-width: 600px) { .scale-options .label-text { display: none; } }
         .scale-options .radio-item { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 0.8rem; font-weight: 700; }
         .scale-options input[type="radio"] { width: 18px; height: 18px; cursor: pointer; }
 
