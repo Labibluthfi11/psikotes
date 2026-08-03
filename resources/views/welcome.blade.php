@@ -21,6 +21,8 @@
             animation: appear 0.6s ease-out;
         }
 
+        @media (max-width: 600px) { body { padding: 10px; } }
+
         .container {
             max-width: 800px;
             margin: 40px auto;
@@ -29,6 +31,8 @@
             transition: transform 0.2s;
         }
 
+        @media (max-width: 600px) { .container { padding: 20px; margin: 20px auto; } }
+
         header {
             display: flex;
             justify-content: space-between;
@@ -36,6 +40,10 @@
             border-bottom: 2px solid #000;
             padding-bottom: 20px;
             margin-bottom: 40px;
+        }
+
+        @media (max-width: 600px) { 
+            header { flex-direction: column; gap: 15px; margin-bottom: 20px; } 
         }
 
         h1 { margin: 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
@@ -64,7 +72,11 @@
             animation: appear 0.8s ease-out;
         }
 
+        @media (max-width: 600px) { h2 { font-size: 2.5rem; } }
+
         p { font-size: 1.2rem; color: #333; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; animation: appear 1s ease-out; }
+
+        @media (max-width: 600px) { p { font-size: 1rem; margin-bottom: 20px; } }
 
         .btn {
             display: inline-block;
@@ -78,6 +90,8 @@
             border: 2px solid #000;
             transition: all 0.1s;
         }
+
+        @media (max-width: 600px) { .btn { width: 100%; padding: 15px; box-sizing: border-box; } }
 
         .btn:hover { background: #fff; color: #000; transform: scale(0.98); }
 
@@ -95,8 +109,7 @@
         .meta-item b { display: block; margin-bottom: 5px; }
 
         @media (max-width: 600px) {
-            h2 { font-size: 2.5rem; }
-            .meta { grid-template-columns: 1fr; }
+            .meta { grid-template-columns: 1fr; margin-top: 30px; padding-top: 15px; }
         }
     </style>
 </head>

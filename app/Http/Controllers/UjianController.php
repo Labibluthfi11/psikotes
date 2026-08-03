@@ -14,12 +14,12 @@ class UjianController extends Controller
         $status = $request->input('status'); // 'running', 'paused', 'idle'
         $durasi = (int)$request->input('durasi', 60);
         
-        $settings = DB::table('ujian_settings')->first();
+        $settings = DB::table('ujian_settings')->where('id', 1)->first();
         
         if ($status === 'running') {
             // Jika resumed dari pause
             if ($settings && $settings->sisa_waktu_paused > 0) {
-                DB::table('ujian_settings')->update([
+                DB::table('ujian_settings')->where('id', 1)->update([
                     'status_ujian_global' => 'running',
                     'waktu_berakhir' => now()->addSeconds($settings->sisa_waktu_paused),
                     'sisa_waktu_paused' => 0,
@@ -40,7 +40,7 @@ class UjianController extends Controller
             // Pause: Simpan sisa waktu
             if ($settings && $settings->waktu_berakhir) {
                 $remaining = max(0, \Carbon\Carbon::parse($settings->waktu_berakhir)->diffInSeconds(now()));
-                DB::table('ujian_settings')->update([
+                DB::table('ujian_settings')->where('id', 1)->update([
                     'status_ujian_global' => 'paused',
                     'sisa_waktu_paused' => $remaining,
                     'waktu_berakhir' => null,
@@ -49,7 +49,7 @@ class UjianController extends Controller
             }
         } else {
             // Idle
-            DB::table('ujian_settings')->update(['status_ujian_global' => 'idle', 'waktu_berakhir' => null, 'sisa_waktu_paused' => 0]);
+            DB::table('ujian_settings')->where('id', 1)->update(['status_ujian_global' => 'idle', 'waktu_berakhir' => null, 'sisa_waktu_paused' => 0]);
         }
 
         return redirect('/admin')->with('success', 'Status ujian diperbarui ke: ' . $status);
@@ -58,7 +58,7 @@ class UjianController extends Controller
     // API: Ambil sisa waktu (untuk polling)
     public function getSisaWaktu()
     {
-        $settings = DB::table('ujian_settings')->first();
+        $settings = DB::table('ujian_settings')->where('id', 1)->first();
         if (!$settings) return response()->json(['remaining' => 0, 'status' => 'idle']);
 
         if ($settings->status_ujian_global === 'running' && $settings->waktu_berakhir) {
@@ -81,7 +81,7 @@ class UjianController extends Controller
 
         $kandidat = auth('kandidat')->user();
         
-        $settings = DB::table('ujian_settings')->first();
+        $settings = DB::table('ujian_settings')->where('id', 1)->first();
         
         if (!$settings || $settings->status_ujian_global !== 'running') {
             return back()->with('error', 'Ujian belum dimulai atau sedang dijeda oleh admin.');
