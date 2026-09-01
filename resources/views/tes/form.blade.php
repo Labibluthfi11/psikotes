@@ -65,7 +65,7 @@
 
         <script>
             function updateTimer() {
-                fetch('/admin/ujian/sisa-waktu', {
+                fetch('/tes/sisa-waktu', {
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}',
                         'Accept': 'application/json'

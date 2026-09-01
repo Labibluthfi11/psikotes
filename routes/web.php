@@ -33,6 +33,7 @@ Route::middleware(['auth:kandidat'])->group(function () {
     Route::get('/instruksi', [KandidatController::class, 'instruksi']);
     Route::post('/tes/mulai', [UjianController::class, 'mulaiTesPribadi']);
     Route::get('/tes', [TesController::class, 'showForm']);
+    Route::get('/tes/sisa-waktu', [UjianController::class, 'getSisaWaktu']);
     Route::post('/tes/submit', [TesController::class, 'submit'])->middleware('throttle:tes');
     Route::get('/tes/selesai', function () {
         return view('tes.selesai');
@@ -44,7 +45,6 @@ Route::middleware(['auth:kandidat'])->group(function () {
 Route::middleware(['auth:web'])->group(function () {
     Route::post('/admin/logout', [AdminController::class, 'logout']);
     Route::post('/admin/ujian/status', [UjianController::class, 'updateGlobalStatus']);
-    Route::get('/admin/ujian/sisa-waktu', [UjianController::class, 'getSisaWaktu']); 
     Route::get('/admin', [AdminController::class, 'index']);
     
     // SPESIFIK dulu (tanpa wildcard)
