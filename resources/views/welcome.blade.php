@@ -124,7 +124,7 @@
             <h2>Tes Psikologi Pendaftar</h2>
             <p>Selesaikan tes ini dengan jujur. Hasil Anda akan menjadi pertimbangan dalam proses rekrutmen kami.</p>
 
-            <a href="{{ url('/tes') }}" class="btn">Mulai Tes Sekarang</a>
+            <a href="{{ url('/login-kandidat') }}" class="btn">Mulai Tes Sekarang</a>
 
             <div class="meta">
                 <div class="meta-item">

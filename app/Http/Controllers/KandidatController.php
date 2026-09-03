@@ -19,18 +19,23 @@ class KandidatController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
+        $request->validate([
+            'nama' => 'required|string',
+            'pin' => 'required|string',
         ]);
 
-        if (Auth::guard('kandidat')->attempt($credentials)) {
+        $kandidat = \App\Models\Kandidat::where('nama', $request->nama)
+                                        ->where('pin', $request->pin)
+                                        ->first();
+
+        if ($kandidat) {
+            Auth::guard('kandidat')->login($kandidat);
             $request->session()->regenerate();
             return redirect('/instruksi');
         }
 
         return back()->withErrors([
-            'email' => 'Email atau password salah.',
+            'nama' => 'Nama atau PIN salah.',
         ]);
     }
 

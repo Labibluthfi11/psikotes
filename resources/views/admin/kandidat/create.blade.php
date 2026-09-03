@@ -52,14 +52,6 @@
                 <input type="text" name="nama" value="{{ old('nama') }}" required>
             </div>
             <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email" value="{{ old('email') }}" required>
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" required>
-            </div>
-            <div class="form-group">
                 <label>Posisi yang Dilamar</label>
                 <select name="posisi" required>
                     <option value="">-- Pilih Posisi --</option>
@@ -71,7 +63,7 @@
             <button type="submit">Simpan Kandidat</button>
         </form>
 
-        <p class="note">Password ini yang akan digunakan kandidat untuk login. Kirimkan email dan password ini ke kandidat via WhatsApp atau email.</p>
+        <p class="note">PIN akan otomatis di-generate setelah kandidat disimpan.</p>
     </div>
 </body>
 </html>

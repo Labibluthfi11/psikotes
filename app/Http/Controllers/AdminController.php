@@ -124,12 +124,9 @@ class AdminController extends Controller
     {
         $validated = $request->validate([
             'nama' => 'required|string|max:255',
-            'email' => 'required|email|unique:kandidat,email',
-            'password' => 'required|string|min:6',
             'posisi' => 'required|string|max:255',
         ]);
 
-        $validated['password'] = Hash::make($validated['password']);
         $validated['pin'] = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
         
         Kandidat::create($validated);

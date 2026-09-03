@@ -16,6 +16,7 @@ class Kandidat extends Authenticatable
         'nama',
         'email',
         'password',
+        'pin',
         'posisi',
         'sudah_tes',
         'status_ujian_pribadi',
