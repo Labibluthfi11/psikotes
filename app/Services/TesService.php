@@ -78,7 +78,7 @@ class TesService
             ['teks'=>'Toko buka 8 jam sehari. Karyawan istirahat 1,5 jam. Berapa % waktu efektif?','opsi'=>['75%','81.25%','85%','87.5%'],'jawaban'=>'81.25%'],
             ['teks'=>'Budi beli baju diskon 20% seharga Rp80.000. Berapa harga asli baju?','opsi'=>['Rp96.000','Rp100.000','Rp104.000','Rp120.000'],'jawaban'=>'Rp100.000'],
             ['teks'=>'Jika 5 orang menyelesaikan pekerjaan dalam 4 hari, berapa hari untuk 10 orang?','opsi'=>['1 hari','2 hari','3 hari','8 hari'],'jawaban'=>'2 hari'],
-            ['teks'=>'Andi berkendara 60 km/jam selama 2,5 jam. Berapa jarak ditempuh?','opsi'=>['120 km','130 km','150 km','180 km'],'jawaban'=>'150 km'],
+            ['teks'=>'Andi berkendara 60 km/jam selama 2 jam 30 menit. Berapa jarak ditempuh?','opsi'=>['120 km','130 km','150 km','180 km'],'jawaban'=>'150 km'],
             ['teks'=>'Harga barang naik dari Rp10.000 ke Rp12.500. Berapa persen kenaikannya?','opsi'=>['15%','20%','25%','30%'],'jawaban'=>'25%'],
             ['teks'=>'Pena : Menulis = Pisau : ...','opsi'=>['Memotong','Makan','Dapur','Logam'],'jawaban'=>'Memotong'],
             ['teks'=>'Semua pegawai tetap mendapat tunjangan. Budi mendapat tunjangan. Maka...','opsi'=>['Budi pegawai tetap','Budi belum pasti pegawai tetap','Budi bukan pegawai tetap','Budi karyawan kontrak'],'jawaban'=>'Budi belum pasti pegawai tetap'],
