@@ -71,6 +71,7 @@
                         <th>Nama</th>
                         <th>Email</th>
                         <th>Posisi</th>
+                        <th>PIN</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -82,6 +83,7 @@
                         <td>{{ $k->nama }}</td>
                         <td>{{ $k->email }}</td>
                         <td>{{ $k->posisi }}</td>
+                        <td style="font-weight: bold; color: #2563eb;">{{ $k->pin ?? 'BELUM GENERATE' }}</td>
                         <td>
                             <span class="badge {{ $k->sudah_tes ? 'bg-sukses' : 'bg-belum' }}">
                                 {{ $k->sudah_tes ? 'Sudah Tes' : 'Belum Tes' }}

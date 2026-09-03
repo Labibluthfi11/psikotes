@@ -130,10 +130,11 @@ class AdminController extends Controller
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
+        $validated['pin'] = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
         
         Kandidat::create($validated);
 
-        return redirect('/admin/kandidat')->with('success', 'Kandidat berhasil ditambahkan.');
+        return redirect('/admin/kandidat')->with('success', 'Kandidat berhasil ditambahkan. PIN: ' . $validated['pin']);
     }
 
     public function kandidatImport(Request $request)
@@ -160,12 +161,14 @@ class AdminController extends Controller
             
             $email = strtolower(str_replace(' ', '.', $nama)) . '_' . rand(100, 999) . '@tes.com';
             $password = 'kandidat' . rand(1000, 9999);
+            $pin = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
             
             Kandidat::create([
                 'nama' => $nama,
                 'email' => $email,
                 'password' => Hash::make($password),
                 'posisi' => $posisi,
+                'pin' => $pin,
             ]);
 
             Log::info('Attempting to create KandidatImport: ' . $nama);
@@ -183,6 +186,7 @@ class AdminController extends Controller
                 'email' => $email,
                 'password' => $password,
                 'posisi' => $posisi,
+                'pin' => $pin,
             ];
         }
         fclose($handle);
