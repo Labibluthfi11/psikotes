@@ -8,7 +8,7 @@
         :root { --bg: #f8fafc; --text: #000; --accent: #2563eb; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fff; color: var(--text); padding: 40px; margin: 0; }
         .container { max-width: 1100px; margin: 0 auto; border: 2px solid #000; padding: 40px; }
-        
+
         /* Header */
         header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #000; padding-bottom: 20px; margin-bottom: 40px; }
         h1 { margin: 0; text-transform: uppercase; letter-spacing: 1px; font-size: 1.5rem; }
@@ -29,7 +29,7 @@
         .badge { padding: 4px 8px; border: 1px solid #000; font-size: 0.7rem; }
         .bg-sukses { background: #22c55e; color: #fff; }
         .bg-belum { background: #f59e0b; color: #fff; }
-        
+
         /* Alert */
         .alert-success { border: 2px solid #000; padding: 15px; background: #dcfce7; font-weight: 800; margin-bottom: 20px; text-transform: uppercase; font-size: 0.8rem; }
 
@@ -69,7 +69,6 @@
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
-                        <th>Email</th>
                         <th>Posisi</th>
                         <th>PIN</th>
                         <th>Status</th>
@@ -81,7 +80,6 @@
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $k->nama }}</td>
-                        <td>{{ $k->email }}</td>
                         <td>{{ $k->posisi }}</td>
                         <td style="font-weight: bold; color: #2563eb;">{{ $k->pin ?? 'BELUM GENERATE' }}</td>
                         <td>
